@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 BOOKS = [
-    {"id": 1, "title": "Harry Potter", "author": "J.K. Rowling", "category": "fantasy"},
+    {"id": 1, "title": "Harry Potter", "author": "JK Rolling", "category": "fantasy"},
     {"id": 2, "title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "category": "fantasy"},
     {"id": 3, "title": "The Alchemist", "author": "Paulo Coelho", "category": "adventure"},
     {"id": 4, "title": "The Da Vinci Code", "author": "Dan Brown", "category": "mystery"},
