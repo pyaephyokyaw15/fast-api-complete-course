@@ -1,0 +1,114 @@
+target-version = "py37"
+
+line-length = 88
+
+[lint]
+select = ["ALL"]
+ignore = [
+    # Disable to use Ruff formatter
+    "ISC001",
+    # These offer little value
+    "EM",
+    # These are things we don't use
+    "ASYNC",
+    "INT",
+    "INP",
+    # The type of `self` and `cls` should be obvious, no need to add type annotation
+    "ANN101",
+    "ANN102",
+    # There are some valid use of Any
+    "ANN401",
+    # Trailing comma is useful, but it does not worth the time enforcing
+    "COM812",
+    # This has high false positive rate. If the value needs to be kept secret,
+    # manual review is still required, so this is unnecessary.
+    "S105",
+    # This is too noisy. If the developer knows shell script, they should at least know
+    # how to check if their subprocess.run() works.
+    "S603",
+    "S607",
+    # Documentation should not be enforced everywhere, that will just lead to lots of useless comment
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D203",
+    "D204",
+    "D212",
+    "D400",
+    # Ruff should not interfere too much about what documentation is talking about, it doesn't have
+    # enough power to understand that yet.
+    "D401",
+    "D406",
+    "D407",
+    "D412",
+    "D415",
+    # Black enforce line length already, this rule is redundant
+    "E501",
+    # Lambda is shorter to write, we should catch hard-to-read lambda through code review instead
+    "E731",
+    # bool has some valid uses, these rules are too noisy to enable
+    "FBT001",
+    "FBT002",
+    "FBT003",
+    # It's too much work to satisfy this rule, yet at the end it still fallback to manual check
+    # during code review. Dynamic logging message is much simpler.
+    "G004",
+    # This is sometimes right, but it is too easily to report non-issue, so we will rely on code review
+    # to catch this instead. If it can scan the whole project and only warn if all instances of the
+    # exception use the same message format, we can re-enable it, but this is unlikely to happen.
+    "TRY003",
+    "TRY300",
+    # The ignore comment must be on the same line, so there will be no room to write the explanation
+    "PGH003",
+    # Falsy and empty string is not equivalent
+    "PLC1901",
+    # Magic value are usually required
+    "PLR2004",
+    "T201",
+    "FA100",
+    "EXE002",
+    # Type annotation for args and kwargs are currently unnecessary
+    "ANN002",
+    "ANN003",
+    # Ignore because we often catch general exception as a final layer before return a response
+    # for general error exception catching
+    "BLE001",
+
+    #
+    "TRY400",
+    # ignore commented code
+    "ERA001",
+]
+exclude = [
+    # This is not valid Python, so Ruff will have trouble scanning it
+    # This is not our code
+]
+[lint.per-file-ignores]
+"*/tests/**" = [
+    # Pytest uses assert, we can't avoid that
+    "S101",
+    # Logging in tests just doesn't make sense, so this rule is not useful there
+    "T201",
+]
+[lint.flake8-builtins]
+builtins-ignorelist = [
+]
+[lint.pylint]
+max-args = 10
+
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[lint.isort]
+split-on-trailing-comma = false
+
+[lint.pycodestyle]
+max-doc-length = 120
+
+[lint.pep8-naming]
+classmethod-decorators = ["expression"]

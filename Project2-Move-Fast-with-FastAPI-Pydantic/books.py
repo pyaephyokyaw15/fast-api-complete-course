@@ -10,6 +10,8 @@ app = FastAPI()
 
 class Book(BaseModel):
     # id: Optional[int] = None
+    # title: str
+    # author = str
     id: Optional[int] = Field(description="ID is not required for POST requests", default=None)
     title: str = Field(min_length=3)  # https://fastapi.tiangolo.com/tutorial/body-fields/
     author: str = Field(min_length=3)
